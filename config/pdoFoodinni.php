@@ -7,15 +7,19 @@
     class PdoFoodinni {
         private static $pdo;
         private static $pdofoodinni = null;
-        private static $creds
 
         public function __construct() {
-            PdoFoodinni::$creds = Creds::getPdoFoodinni();
+            $creds = Creds::getPdoFoodinni();
             $host = $creds->host;
             $dbname = $creds->dbname;
             $username = $creds->username;
             $password = $creds->password;
-            PdoFoodinni::$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            try {
+                PdoFoodinni::$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            }
+            catch (Exception $e) {
+                die($e);
+            }
             PdoFoodinni::$pdo->query("SET CHARACTER SET utf8");
         }
 
