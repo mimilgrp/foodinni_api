@@ -9,4 +9,12 @@
     
     $cashier = new Cashier($pdo, $paramscashier);
     $cashier->get();
+
+    if (!$cashier->isAuthentified()) {
+        http_response_code(400);
+        die(json_encode([
+            "status" => "error",
+            "message" => "Bad authorization"
+        ]));
+    }
 ?>
