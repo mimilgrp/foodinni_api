@@ -5,6 +5,7 @@
         private $mail;
         private $firstname;
         private $lastname;
+        private $authentified;
         
         public function __construct($pdo, $params = null) {
             $this->setPdo($pdo);
@@ -82,9 +83,16 @@
             }
         }
 
+        public function isAuthentified() {
+            return boolval($this->authentified);
+        }
+
+        public function setAuthentified($authentified) {
+            $this->authentified = boolval($authentified);
+        }
+
         public function toArray() {
             return [
-                "type" => $this->getType(),
                 "identifier" => $this->getIdentifier(),
                 "mail" => $this->getMail(),
                 "firstname" => $this->getFirstname(),

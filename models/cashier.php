@@ -3,10 +3,10 @@
 
     class Cashier extends Account {      
         private $password;
-        private $authentified;
         
         public function __construct($pdo, $params = null) {
-            parent::__construct($pdo, "cashier", $params);
+            parent::__construct($pdo, $params);
+            $this->setPassword($params["password"]);
         }
 
         private function getPassword() {
@@ -16,18 +16,6 @@
         private function setPassword($password) {
             $this->password = htmlspecialchars(strip_tags($password));
             $this->setAuthentified(false);
-        }
-
-        public function isAuthentified() {
-            return boolval($this->authentified);
-        }
-
-        public function setAuthentified($authentified) {
-            $this->authentified = boolval($authentified);
-        }
-
-        public function toArray() {
-            
         }
 
         public function get() {
