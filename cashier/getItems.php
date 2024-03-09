@@ -4,7 +4,7 @@
         require_once "../config/authCashier.php";
         require_once "../models/item.php";
 
-        $newitem = new Item($this->getPdo());
+        $newitem = new Item($cashier->getPdo());
         $items = $newitem->getAll();
         $itemsarray = [];
         

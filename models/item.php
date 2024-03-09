@@ -60,7 +60,7 @@
                 $this->name = null;
             }
             else {
-                $strip = striptags($name);
+                $strip = strip_tags($name);
                 $chars = htmlspecialchars($strip);
                 $this->name = strtolower($chars);
             }
@@ -151,7 +151,7 @@
                 $this->brand = null;
             }
             else {
-                $strip = striptags($brand);
+                $strip = strip_tags($brand);
                 $chars = htmlspecialchars($strip);
                 $this->brand = strtolower($chars);
             }
@@ -166,7 +166,7 @@
                 $this->category = null;
             }
             else {
-                $strip = striptags($category);
+                $strip = strip_tags($category);
                 $chars = htmlspecialchars($strip);
                 $this->category = strtolower($chars);
             }
@@ -176,7 +176,7 @@
             return [
                 "ean13" => $this->getEan13(),
                 "name" => $this->getName(),
-                "bulk" => $this->getBulk(),
+                "bulk" => $this->isBulk(),
                 "stock" => $this->getStock(),
                 "stock_kg" => $this->getStockKg(),
                 "price" => $this->getPrice(),
@@ -187,9 +187,8 @@
             ];
         }
 
-        public static function getAll() {
+        public function getAll() {
             $pdo = $this->getPdo();
-
             $results = $pdo->getAllItems();
             $items = [];
 
@@ -197,6 +196,8 @@
                 $item = new Item($pdo, $result);
                 array_push($items, $item);
             }
+
+            return $items;
         }
     }
 ?>
