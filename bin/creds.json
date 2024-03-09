@@ -1,7 +1,7 @@
 {
     "pdoFoodinni": {
-        "_host": "127.0.0.1:3306",
-        "host": "193.203.168.33",
+        "host": "127.0.0.1:3306",
+        "_host": "193.203.168.33",
         "dbname": "u250990058_foodinni",
         "username": "u250990058_foodinni_adm",
         "password": "juprob-mykhy4-rekqaH"
