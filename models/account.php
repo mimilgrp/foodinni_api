@@ -96,8 +96,7 @@
                 "identifier" => $this->getIdentifier(),
                 "mail" => $this->getMail(),
                 "firstname" => $this->getFirstname(),
-                "lastname" => $this->getLastname(),
-                "authentified" => $this->isAuthentified()
+                "lastname" => $this->getLastname()
             ];
         }
     }
