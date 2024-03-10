@@ -44,6 +44,11 @@
             return PdoFoodinni::queryFetch($request)[0];
         }
 
+        public function getCustomer($identifier, $password) {
+            $request = "SELECT account.* FROM customer LEFT JOIN account ON customer.identifier = account.identifier WHERE customer.identifier = '$identifier' AND password = '$password';";
+            return PdoFoodinni::queryFetch($request)[0];
+        }
+
         public function getAllItems() {
             $request = "SELECT * FROM item;";
             return PdoFoodinni::queryFetch($request);
