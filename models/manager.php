@@ -31,5 +31,18 @@
             $this->setLastname($result["lastname"]);
             $this->setAuthentified(!is_null($result));
         }
+
+        public function getAll() {
+            $pdo = $this->getPdo();
+            $results = $pdo->getAllManagers();
+            $managers = [];
+
+            foreach ($results as $result) {
+                $manager = new Manager($pdo, $result);
+                array_push($managers, $manager);
+            }
+
+            return $managers;
+        }
     }
 ?>
