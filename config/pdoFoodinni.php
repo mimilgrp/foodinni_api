@@ -49,6 +49,11 @@
             return PdoFoodinni::queryFetch($request)[0];
         }
 
+        public function getManager($identifier, $password) {
+            $request = "SELECT account.* FROM manager LEFT JOIN account ON manager.identifier = account.identifier WHERE manager.identifier = '$identifier' AND password = '$password';";
+            return PdoFoodinni::queryFetch($request)[0];
+        }
+
         public function getAllItems() {
             $request = "SELECT * FROM item;";
             return PdoFoodinni::queryFetch($request);
