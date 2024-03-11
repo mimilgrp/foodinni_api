@@ -2,9 +2,10 @@
     try {
         require_once "../config/headersGet.php";
         require_once "../config/authCashier.php";
+        require_once "../config/pdoFoodinni.php";
         require_once "../models/item.php";
 
-        $newitem = new Item($cashier->getPdo());
+        $newitem = new Item($pdo);
         $items = $newitem->getAll();
         $itemsarray = [];
         
