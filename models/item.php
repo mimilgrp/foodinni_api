@@ -199,5 +199,18 @@
 
             return $items;
         }
+
+        public function getAllDiscounts() {
+            $pdo = $this->getPdo();
+            $results = $pdo->getAllDiscounts();
+            $discounts = [];
+
+            foreach ($results as $result) {
+                $discount = new Item($pdo, $result);
+                array_push($discounts, $discount);
+            }
+
+            return $discounts;
+        }
     }
 ?>

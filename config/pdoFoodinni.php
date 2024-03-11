@@ -54,6 +54,11 @@
             return PdoFoodinni::queryFetch($request);
         }
 
+        public function getAllDiscounts() {
+            $request = "SELECT * FROM item WHERE discount IS NOT NULL;";
+            return PdoFoodinni::queryFetch($request);
+        }
+
         public function getManager($identifier, $password) {
             $request = "SELECT account.* FROM manager LEFT JOIN account ON manager.identifier = account.identifier WHERE manager.identifier = '$identifier' AND password = '$password';";
             return PdoFoodinni::queryFetch($request)[0];
