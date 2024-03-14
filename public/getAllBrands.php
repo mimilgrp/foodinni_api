@@ -4,8 +4,8 @@
         require_once "../config/pdoFoodinni.php";
         require_once "../models/item.php";
 
-        $newitem = new Item($pdo);
-        $brands = $newitem->getAllBrands();
+        $newbrand = new Brand($pdo);
+        $brands = $newbrand->getAllBrands();
         $brandsarray = [];
         
         foreach ($brands as $brand) {
