@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 07 mars 2024 à 17:25
+-- Généré le : jeu. 14 mars 2024 à 09:36
 -- Version du serveur : 10.11.7-MariaDB-cll-lve
 -- Version de PHP : 7.2.34
 
@@ -50,19 +50,20 @@ INSERT INTO `account` (`identifier`, `mail`, `firstname`, `lastname`) VALUES
 --
 
 CREATE TABLE `brand` (
-  `name` varchar(20) NOT NULL
+  `name` varchar(20) NOT NULL,
+  `mail` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `brand`
 --
 
-INSERT INTO `brand` (`name`) VALUES
-('charal'),
-('danone'),
-('pirkka'),
-('sondey'),
-('valio');
+INSERT INTO `brand` (`name`, `mail`) VALUES
+('charal', NULL),
+('danone', NULL),
+('pirkka', NULL),
+('sondey', NULL),
+('valio', NULL);
 
 -- --------------------------------------------------------
 
@@ -119,6 +120,13 @@ CREATE TABLE `customer` (
   `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `customer`
+--
+
+INSERT INTO `customer` (`identifier`, `password`) VALUES
+('emilien', '5f6e7373d2689043fc7e3d9d18ae1d1f');
+
 -- --------------------------------------------------------
 
 --
@@ -126,7 +134,7 @@ CREATE TABLE `customer` (
 --
 
 CREATE TABLE `item` (
-  `ean13` varchar(3) NOT NULL,
+  `ean13` varchar(13) NOT NULL,
   `name` varchar(30) NOT NULL,
   `bulk` tinyint(1) DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
@@ -162,7 +170,7 @@ INSERT INTO `item` (`ean13`, `name`, `bulk`, `stock`, `stock_kg`, `price`, `pric
 --
 
 CREATE TABLE `item_orders` (
-  `ean13` varchar(3) NOT NULL,
+  `ean13` varchar(13) NOT NULL,
   `id_orders` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `quantity_kg` decimal(7,3) DEFAULT NULL
@@ -175,7 +183,7 @@ CREATE TABLE `item_orders` (
 --
 
 CREATE TABLE `item_receipt` (
-  `ean13` varchar(3) NOT NULL,
+  `ean13` varchar(13) NOT NULL,
   `id_receipt` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `quantity_kg` decimal(4,2) DEFAULT NULL,
@@ -195,6 +203,14 @@ CREATE TABLE `manager` (
   `identifier` varchar(10) NOT NULL,
   `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `manager`
+--
+
+INSERT INTO `manager` (`identifier`, `password`) VALUES
+('emilien', '0b137b50701a3e1dd0942d6ae7b831e3'),
+('timo', '6dbd53d3d81e7f87c92c3fe2ba7351b0');
 
 -- --------------------------------------------------------
 
@@ -227,7 +243,7 @@ CREATE TABLE `receipt` (
 --
 
 CREATE TABLE `shopping_list` (
-  `ean13` varchar(3) NOT NULL,
+  `ean13` varchar(13) NOT NULL,
   `identifier` varchar(10) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `quantity_kg` decimal(4,2) DEFAULT NULL
