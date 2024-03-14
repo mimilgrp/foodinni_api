@@ -1,4 +1,6 @@
 <?php
+    require_once "../config/format.php";
+
     class Account {
         private $pdo;
         private $identifier;
@@ -30,61 +32,42 @@
         }
 
         public function setIdentifier($identifier) {
+            $identifier = Format::toString($identifier);
             if (!is_null($identifier)) {
-                $strip = strip_tags($identifier);
-                $chars = htmlspecialchars($strip);
-                $this->identifier = strtolower($chars);
+                $this->identifier = $identifier;
                 $this->setAuthentified(false);
             }
         }
 
         private function getMail() {
-            return strtolower($this->mail);
+            return $this->mail;
         }
 
         public function setMail($mail) {
-            if (is_null($mail)) {
-                $this->mail = null;
-            }
-            else {
-                $strip = strip_tags($mail);
-                $chars = htmlspecialchars($strip);
-                $this->mail = strtolower($chars);
-            }
+            $mail = Format::toString($mail);
+            $this->mail = $mail;
         }
 
         private function getFirstname() {
-            return strtolower($this->firstname);
+            return $this->firstname;
         }
 
         public function setFirstname($firstname) {
-            if (is_null($firstname)) {
-                $this->firstname = null;
-            }
-            else {
-                $strip = strip_tags($firstname);
-                $chars = htmlspecialchars($strip);
-                $this->firstname = strtolower($chars);
-            }
+            $firstname = Format::toString($firstname);
+            $this->firstname = $firstname;
         }
 
         private function getLastname() {
-            return strtolower($this->lastname);
+            return $this->lastname;
         }
 
         public function setLastname($lastname) {
-            if (is_null($lastname)) {
-                $this->lastname = null;
-            }
-            else {
-                $strip = strip_tags($lastname);
-                $chars = htmlspecialchars($strip);
-                $this->lastname = strtolower($chars);
-            }
+            $lastname = Format::toString($lastname);
+            $this->lastname = $lastname;
         }
 
         public function isAuthentified() {
-            return boolval($this->authentified);
+            return $this->authentified;
         }
 
         public function setAuthentified($authentified) {

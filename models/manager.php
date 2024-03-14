@@ -1,4 +1,5 @@
 <?php
+    require_once "../config/format.php";
     require_once "../models/account.php";
 
     class Manager extends Account {      
@@ -14,7 +15,8 @@
         }
 
         private function setPassword($password) {
-            $this->password = htmlspecialchars(strip_tags($password));
+            $password = Format::toString($password);
+            $this->password = $password;
             $this->setAuthentified(false);
         }
 

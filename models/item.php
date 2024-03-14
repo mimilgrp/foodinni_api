@@ -1,4 +1,6 @@
 <?php
+    require_once "../config/format.php";
+
     class Item {
         private $pdo;
         private $ean13;
@@ -39,16 +41,8 @@
         }
 
         private function setEan13($ean13) {
-            if (is_null($ean13)) {
-                $this->ean13 = null;
-            }
-            else {
-                $int = intval($ean13);
-                $min = min($int, 9999999999999);
-                $max = max($min, 0);
-                $str = strval($max);
-                $this->ean13 = str_pad($str, 13, "0", STR_PAD_LEFT);
-            }
+            $ean13 = Format::toEan13($ean13);
+            $this->ean13 = $ean13;
         }
 
         private function getName() {
@@ -56,14 +50,8 @@
         }
 
         private function setName($name) {
-            if (is_null($name)) {
-                $this->name = null;
-            }
-            else {
-                $strip = strip_tags($name);
-                $chars = htmlspecialchars($strip);
-                $this->name = strtolower($chars);
-            }
+            $name = Format::toString($name);
+            $this->name = $name;
         }
 
         private function isBulk() {
@@ -71,7 +59,16 @@
         }
 
         private function setBulk($bulk) {
-            $this->bulk = boolval($bulk);
+            $bulk = boolval($bulk);
+            if ($bulk) {
+                $this->setStock(null);
+                $this->setPrice(null);
+            }
+            else {
+                $this->setStockKg(null);
+                $this->setPriceKg(null);
+            }
+            $this->bulk = $bulk;
         }
 
         private function getStock() {
@@ -131,15 +128,8 @@
         }
 
         private function setDiscount($discount) {
-            if (is_null($discount)) {
-                $this->discount = null;
-            }
-            else {
-                $int = intval($discount * 100);
-                $min = min($int, 0);
-                $max = max($min, 99);
-                $this->discount = $max / 100;
-            }
+            $discount = Format::toDiscount($discount);
+            $this->discount = $discount;
         }
 
         private function getBrand() {
@@ -147,14 +137,8 @@
         }
 
         private function setBrand($brand) {
-            if (is_null($brand)) {
-                $this->brand = null;
-            }
-            else {
-                $strip = strip_tags($brand);
-                $chars = htmlspecialchars($strip);
-                $this->brand = strtolower($chars);
-            }
+            $brand = Format::toString($brand);
+            $this->brand = $brand;
         }
 
         private function getCategory() {
@@ -162,14 +146,8 @@
         }
 
         private function setCategory($category) {
-            if (is_null($category)) {
-                $this->category = null;
-            }
-            else {
-                $strip = strip_tags($category);
-                $chars = htmlspecialchars($strip);
-                $this->category = strtolower($chars);
-            }
+            $category = Format::toString($category);
+            $this->category = $category;
         }
 
         public function toArray() {
