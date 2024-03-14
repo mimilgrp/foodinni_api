@@ -59,6 +59,11 @@
             return PdoFoodinni::queryFetch($request);
         }
 
+        public function getAllBrands() {
+            $request = "SELECT * FROM brand;";
+            return PdoFoodinni::queryFetch($request);
+        }
+
         public function getManager($identifier, $password) {
             $request = "SELECT account.* FROM manager LEFT JOIN account ON manager.identifier = account.identifier WHERE manager.identifier = '$identifier' AND password = '$password';";
             return PdoFoodinni::queryFetch($request)[0];
