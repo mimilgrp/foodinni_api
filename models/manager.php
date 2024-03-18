@@ -2,7 +2,7 @@
     require_once "../config/format.php";
     require_once "../models/account.php";
 
-    class Manager extends Account {      
+    class Manager extends Account {
         private $password;
         
         public function __construct($pdo, $params = null) {

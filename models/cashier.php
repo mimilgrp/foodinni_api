@@ -2,7 +2,7 @@
     require_once "../config/format.php";
     require_once "../models/account.php";
 
-    class Cashier extends Account {      
+    class Cashier extends Account {
         private $password;
         
         public function __construct($pdo, $params = null) {
