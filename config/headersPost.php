@@ -9,7 +9,7 @@
         http_response_code(405);
         die(json_encode([
             "status" => "error",
-            "message" => $_SERVER["REQUEST_METHOD"]." method not allowed"
+            "message" => "Bad method ".$_SERVER["REQUEST_METHOD"]
         ]));
     }
 ?>
