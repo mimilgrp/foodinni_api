@@ -49,18 +49,23 @@
             return PdoFoodinni::queryFetch($request)[0];
         }
 
+        public function getCustomerByIdentifier($identifier) {
+            $request = "SELECT account.identifier, firstname, lastname FROM customer LEFT JOIN account ON customer.identifier = account.identifier WHERE customer.identifier = '$identifier';";
+            return PdoFoodinni::queryFetch($request)[0];
+        }
+
         public function getAllItems() {
             $request = "SELECT * FROM item;";
             return PdoFoodinni::queryFetch($request);
         }
 
-        public function getAllDiscounts() {
+        public function getAllItemsDiscounts() {
             $request = "SELECT * FROM item WHERE discount IS NOT NULL;";
             return PdoFoodinni::queryFetch($request);
         }
 
-        public function getAllBrands() {
-            $request = "SELECT * FROM brand;";
+        public function getAllBrandsCategories() {
+            $request = "SELECT DISTINCT brand.name, item.category FROM brand LEFT JOIN item ON brand.name = item.brand;";
             return PdoFoodinni::queryFetch($request);
         }
 

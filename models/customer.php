@@ -33,5 +33,17 @@
             $this->setLastname($result["lastname"]);
             $this->setAuthentified(!is_null($result));
         }
+
+        public function getByIdentifier() {
+            $pdo = $this->getPdo();
+            $identifier = $this->getIdentifier();
+
+            $result = $pdo->getCustomerByIdentifier($identifier);
+
+            $this->setIdentifier($result["identifier"]);
+            $this->setFirstname($result["firstname"]);
+            $this->setLastname($result["lastname"]);
+            $this->setAuthentified(!is_null($result));
+        }
     }
 ?>
