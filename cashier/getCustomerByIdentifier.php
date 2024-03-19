@@ -4,9 +4,7 @@
         require_once "../config/authCashier.php";
         require_once "../models/customer.php";
 
-        $input = file_get_contents("php://input");
-        $body = json_decode($input);
-        $identifier = $body->identifier;
+        $identifier = $_GET["identifier"];
 
         if (!strval($identifier)) {
             http_response_code(400);
