@@ -180,7 +180,7 @@
 
         public function getAllDiscounts() {
             $pdo = $this->getPdo();
-            $results = $pdo->getAllDiscounts();
+            $results = $pdo->getAllItemsDiscounts();
             $discounts = [];
 
             foreach ($results as $result) {
