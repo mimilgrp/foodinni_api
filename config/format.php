@@ -39,5 +39,19 @@
             $discount = $discount / 100;
             return $discount;
         }
+
+        public static function toCategories($categories) {
+            if (gettype($categories) != "array") {
+                return null;
+            }
+
+            foreach ($categories as $category) {
+                if (!is_a($category, 'Category')) {
+                    return null;
+                }
+            }
+
+            return $categories;
+        }
     }
 ?>

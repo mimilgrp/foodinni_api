@@ -2,10 +2,10 @@
     try {
         require_once "../config/headersGet.php";
         require_once "../config/pdoFoodinni.php";
-        require_once "../models/item.php";
+        require_once "../models/brand.php";
 
         $newbrand = new Brand($pdo);
-        $brands = $newbrand->getAllBrands();
+        $brands = $newbrand->getAllCategories();
         $brandsarray = [];
         
         foreach ($brands as $brand) {
