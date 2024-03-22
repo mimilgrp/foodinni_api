@@ -34,8 +34,8 @@
             $stockkg = floatval($stockkg);
             $stockkg = $stockkg * 1000;
             $stockkg = intval($stockkg);
-            $stockkg = min($stockkg, 0);
-            $stockkg = max($stockkg, 9999999999);
+            $stockkg = min($stockkg, 9999999999);
+            $stockkg = max($stockkg, 0);
             $stockkg = $stockkg / 1000;
             return $stockkg;
         }
@@ -48,8 +48,8 @@
             $price = floatval($price);
             $price = $price * 100;
             $price = intval($price);
-            $price = min($price, 0);
-            $price = max($price, 99999);
+            $price = min($price, 99999);
+            $price = max($price, 0);
             $price = $price / 100;
             return $price;
         }
@@ -62,8 +62,8 @@
             $discount = floatval($discount);
             $discount = $discount * 100;
             $discount = intval($discount);
-            $discount = min($discount, 0);
-            $discount = max($discount, 99);
+            $discount = min($discount, 99);
+            $discount = max($discount, 0);
             $discount = $discount / 100;
             return $discount;
         }
