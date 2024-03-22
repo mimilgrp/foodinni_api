@@ -11,6 +11,7 @@
         private $price;
         private $pricekg;
         private $discount;
+        private $image;
         private $brand;
         private $category;
 
@@ -24,6 +25,7 @@
             $this->setPrice($params["price"]);
             $this->setPriceKg($params["price_kg"]);
             $this->setDiscount($params["discount"]);
+            $this->setImage($params["image"]);
             $this->setBrand($params["brand"]);
             $this->setCategory($params["category"]);
         }
@@ -113,16 +115,16 @@
         }
 
         private function getPriceKg() {
-            return $this->priceKg;
+            return $this->pricekg;
         }
 
         private function setPriceKg($pricekg) {
-            if (!$this->isBulk() || is_null($pricekg)) {
-                $this->priceKg = null;
+            if (!$this->isBulk()) {
+                $this->pricekg = null;
             }
             else {
-                $price = Format::toPrice($price);
-                $this->price = $price;
+                $pricekg = Format::toPrice($pricekg);
+                $this->pricekg = $pricekg;
             }
         }
 
