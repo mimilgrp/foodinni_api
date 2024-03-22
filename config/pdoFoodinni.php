@@ -20,7 +20,7 @@
             catch (Exception $e) {
                 die($e);
             }
-            PdoFoodinni::$pdo->query("SET CHARACTER SET utf8");
+            PdoFoodinni::$pdo->exec("SET CHARACTER SET utf8");
         }
 
         public function destructPdo() {
@@ -34,49 +34,65 @@
             return PdoFoodinni::$pdofoodinni;  
         }
 
-        private static function queryFetch($request) {
-            $result = PdoFoodinni::$pdo->query($request);
-            return $result->fetchAll();
-        }
-
         public function getCashier($identifier, $password) {
-            $request = "SELECT account.* FROM cashier LEFT JOIN account ON cashier.identifier = account.identifier WHERE cashier.identifier = '$identifier' AND password = '$password';";
-            return PdoFoodinni::queryFetch($request)[0];
+            $request = PdoFoodinni::$pdo->prepare("SELECT account.* FROM cashier
+                LEFT JOIN account ON cashier.identifier = account.identifier
+                WHERE cashier.identifier = :identifier AND password = :password;");
+            $request->bindValue(':identifier', $identifier, PDO::PARAM_STR);
+            $request->bindValue(':password', $password, PDO::PARAM_STR);
+            $request->execute();
+            return $request->fetchAll()[0];
         }
 
         public function getCustomer($identifier, $password) {
-            $request = "SELECT account.* FROM customer LEFT JOIN account ON customer.identifier = account.identifier WHERE customer.identifier = '$identifier' AND password = '$password';";
-            return PdoFoodinni::queryFetch($request)[0];
+            $request = PdoFoodinni::$pdo->prepare("SELECT account.* FROM customer
+                LEFT JOIN account ON customer.identifier = account.identifier
+                WHERE customer.identifier = :identifier AND password = :password;");
+            $request->bindValue(':identifier', $identifier, PDO::PARAM_STR);
+            $request->bindValue(':password', $password, PDO::PARAM_STR);
+            $request->execute();
+            return $request->fetchAll()[0];
         }
 
         public function getCustomerByIdentifier($identifier) {
-            $request = "SELECT account.identifier, firstname, lastname FROM customer LEFT JOIN account ON customer.identifier = account.identifier WHERE customer.identifier = '$identifier';";
-            return PdoFoodinni::queryFetch($request)[0];
+            $request = PdoFoodinni::$pdo->prepare("SELECT account.identifier, firstname, lastname FROM customer
+                LEFT JOIN account ON customer.identifier = account.identifier
+                WHERE customer.identifier = :identifier;");
+            $request->bindValue(':identifier', $identifier, PDO::PARAM_STR);
+            $request->execute();
+            return $request->fetchAll()[0];
         }
 
         public function getAllItems() {
-            $request = "SELECT * FROM item;";
-            return PdoFoodinni::queryFetch($request);
+            $result = PdoFoodinni::$pdo->query("SELECT * FROM item;");
+            return $result->fetchAll();
         }
 
         public function getAllItemsDiscounts() {
-            $request = "SELECT * FROM item WHERE discount IS NOT NULL;";
-            return PdoFoodinni::queryFetch($request);
+            $result = PdoFoodinni::$pdo->query("SELECT * FROM item WHERE discount IS NOT NULL;");
+            return $result->fetchAll();
         }
 
         public function getAllBrandsCategories() {
-            $request = "SELECT DISTINCT brand.name, item.category FROM brand LEFT JOIN item ON brand.name = item.brand;";
-            return PdoFoodinni::queryFetch($request);
+            $result = PdoFoodinni::$pdo->query("SELECT DISTINCT brand.name, item.category FROM brand
+                LEFT JOIN item ON brand.name = item.brand;");
+            return $result->fetchAll();
         }
 
         public function getManager($identifier, $password) {
-            $request = "SELECT account.* FROM manager LEFT JOIN account ON manager.identifier = account.identifier WHERE manager.identifier = '$identifier' AND password = '$password';";
-            return PdoFoodinni::queryFetch($request)[0];
+            $request = PdoFoodinni::$pdo->prepare("SELECT account.* FROM manager
+                LEFT JOIN account ON manager.identifier = account.identifier
+                WHERE manager.identifier = :identifier AND password = :password;");
+            $request->bindValue(':identifier', $identifier, PDO::PARAM_STR);
+            $request->bindValue(':password', $password, PDO::PARAM_STR);
+            $request->execute();
+            return $request->fetchAll()[0];
         }
 
         public function getAllManagers() {
-            $request = "SELECT account.* FROM manager LEFT JOIN account ON manager.identifier = account.identifier;";
-            return PdoFoodinni::queryFetch($request);
+            $result = PdoFoodinni::$pdo->query("SELECT account.* FROM manager
+                LEFT JOIN account ON manager.identifier = account.identifier;");
+            return $result-fetchAll();
         }
     }
 ?>

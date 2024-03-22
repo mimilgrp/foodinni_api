@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 14 mars 2024 à 09:36
+-- Généré le : ven. 22 mars 2024 à 15:47
 -- Version du serveur : 10.11.7-MariaDB-cll-lve
 -- Version de PHP : 7.2.34
 
@@ -51,19 +51,19 @@ INSERT INTO `account` (`identifier`, `mail`, `firstname`, `lastname`) VALUES
 
 CREATE TABLE `brand` (
   `name` varchar(20) NOT NULL,
-  `mail` varchar(50) DEFAULT NULL
+  `mail` varchar(50) DEFAULT NULL,
+  `image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `brand`
 --
 
-INSERT INTO `brand` (`name`, `mail`) VALUES
-('charal', NULL),
-('danone', NULL),
-('pirkka', NULL),
-('sondey', NULL),
-('valio', NULL);
+INSERT INTO `brand` (`name`, `mail`, `image`) VALUES
+('coca cola', NULL, 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/1024px-Coca-Cola_logo.svg.png'),
+('pågen', NULL, 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/ca/Pagen.gif/1280px-Pagen.gif'),
+('pirkka', NULL, 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Pirkka_logo.svg/2560px-Pirkka_logo.svg.png'),
+('valio', NULL, 'https://upload.wikimedia.org/wikipedia/fr/4/41/Valio_Logo.png');
 
 -- --------------------------------------------------------
 
@@ -91,23 +91,24 @@ INSERT INTO `cashier` (`identifier`, `password`) VALUES
 --
 
 CREATE TABLE `category` (
-  `name` varchar(20) NOT NULL
+  `name` varchar(20) NOT NULL,
+  `image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `category`
 --
 
-INSERT INTO `category` (`name`) VALUES
-('bakery'),
-('beverages'),
-('dairy products'),
-('fruit and vegetables'),
-('groceries'),
-('household items'),
-('meat and fish'),
-('personal care'),
-('snacks');
+INSERT INTO `category` (`name`, `image`) VALUES
+('bakery', NULL),
+('beverages', NULL),
+('dairy products', NULL),
+('fruit and vegetables', NULL),
+('groceries', NULL),
+('household items', NULL),
+('meat and fish', NULL),
+('personal care', NULL),
+('snacks', NULL);
 
 -- --------------------------------------------------------
 
@@ -135,13 +136,14 @@ INSERT INTO `customer` (`identifier`, `password`) VALUES
 
 CREATE TABLE `item` (
   `ean13` varchar(13) NOT NULL,
-  `name` varchar(30) NOT NULL,
+  `name` varchar(80) NOT NULL,
   `bulk` tinyint(1) DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
   `stock_kg` decimal(7,3) DEFAULT NULL,
   `price` decimal(5,2) DEFAULT NULL,
   `price_kg` decimal(5,2) DEFAULT NULL,
   `discount` decimal(2,2) DEFAULT NULL,
+  `image` text DEFAULT NULL,
   `brand` varchar(20) DEFAULT NULL,
   `category` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -150,18 +152,13 @@ CREATE TABLE `item` (
 -- Déchargement des données de la table `item`
 --
 
-INSERT INTO `item` (`ean13`, `name`, `bulk`, `stock`, `stock_kg`, `price`, `price_kg`, `discount`, `brand`, `category`) VALUES
-('104', 'potato', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'fruit and vegetables'),
-('117', 'tomato', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'fruit and vegetables'),
-('152', 'granny smith apple 1kg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'fruit and vegetables'),
-('224', 'milk 1l', NULL, NULL, NULL, NULL, NULL, NULL, 'valio', 'dairy products'),
-('230', 'strawberry yoghurt x6', NULL, NULL, NULL, NULL, NULL, NULL, 'danone', 'dairy products'),
-('295', 'salted butter 200g', NULL, NULL, NULL, NULL, NULL, NULL, 'valio', 'dairy products'),
-('308', 'salmon 160g', NULL, NULL, NULL, NULL, NULL, NULL, 'pirkka', 'meat and fish'),
-('315', 'minced meat 400g', NULL, NULL, NULL, NULL, NULL, NULL, 'charal', 'meat and fish'),
-('565', 'rice 1kg', NULL, NULL, NULL, 0.89, NULL, 0.05, 'pirkka', 'groceries'),
-('688', 'dark chocolate cookies 160g', NULL, NULL, NULL, NULL, NULL, NULL, 'sondey', 'snacks'),
-('981', 'butter cheese 400g', NULL, NULL, NULL, NULL, NULL, 0.20, 'valio', 'dairy products');
+INSERT INTO `item` (`ean13`, `name`, `bulk`, `stock`, `stock_kg`, `price`, `price_kg`, `discount`, `image`, `brand`, `category`) VALUES
+('2000613700005', 'onion', 1, NULL, NULL, NULL, 1.39, NULL, 'https://public.keskofiles.com/f/k-ruoka/product/2000613700005?auto=format&fm=jpg&cs=srgb', NULL, 'fruit and vegetables'),
+('6408430037001', 'valio aura blue cheese 170g piece', NULL, NULL, NULL, 3.15, NULL, 0.20, 'https://public.keskofiles.com/f/k-ruoka/product/6408430037001?auto=format&fm=jpg&cs=srgb', 'valio', 'dairy products'),
+('6410405255761', 'pirkka shortbread 300g orange', NULL, NULL, NULL, 2.69, NULL, 0.26, 'https://public.keskofiles.com/f/k-ruoka/product/6410405255761?auto=format&fm=jpg&cs=srgb', 'pirkka', 'snacks'),
+('6410405260253', 'pirkka spanish tangerine 650g', NULL, NULL, NULL, 1.00, NULL, NULL, 'https://public.keskofiles.com/f/k-ruoka/product/6410405260253?auto=format&fm=jpg&cs=srgb', 'pirkka', 'fruit and vegetables'),
+('6415600550413', 'coca-cola zero 0,33l 24-pack', NULL, NULL, NULL, 14.49, NULL, 0.31, 'https://public.keskofiles.com/f/k-ruoka/product/6415600550413?auto=format&fm=jpg&cs=srgb', 'coca cola', 'beverages'),
+('7311070032352', 'pågen oivallus rye whole wheat bread 15 pcs/530g', NULL, NULL, NULL, 2.99, NULL, 0.10, 'https://public.keskofiles.com/f/k-ruoka/product/0NNH0/7311070032352?auto=format&fm=jpg&cs=srgb', 'pågen', 'bakery');
 
 -- --------------------------------------------------------
 
