@@ -7,9 +7,9 @@
         private $name;
         private $bulk;
         private $stock;
-        private $stockKg;
+        private $stockkg;
         private $price;
-        private $priceKg;
+        private $pricekg;
         private $discount;
         private $brand;
         private $category;
@@ -85,15 +85,16 @@
         }
 
         private function getStockKg() {
-            return $this->stockKg;
+            return $this->stockkg;
         }
 
-        private function setStockKg($stockKg) {
-            if (!$this->isBulk() || is_null($stockKg)) {
-                $this->stockKg = null;
+        private function setStockKg($stockkg) {
+            if (!$this->isBulk()) {
+                $this->stockkg = null;
             }
             else {
-                $this->stockKg = intval($stockKg);
+                $stockkg = Format::toStockKg($stockkg);
+                $this->stockkg = $stockkg;
             }
         }
 
@@ -102,11 +103,12 @@
         }
 
         private function setPrice($price) {
-            if ($this->isBulk() || is_null($price)) {
+            if ($this->isBulk()) {
                 $this->price = null;
             }
             else {
-                $this->price = intval($price);
+                $price = Format::toPrice($price);
+                $this->price = $price;
             }
         }
 
@@ -114,12 +116,13 @@
             return $this->priceKg;
         }
 
-        private function setPriceKg($priceKg) {
-            if (!$this->isBulk() || is_null($priceKg)) {
+        private function setPriceKg($pricekg) {
+            if (!$this->isBulk() || is_null($pricekg)) {
                 $this->priceKg = null;
             }
             else {
-                $this->priceKg = intval($priceKg);
+                $price = Format::toPrice($price);
+                $this->price = $price;
             }
         }
 
@@ -130,6 +133,15 @@
         private function setDiscount($discount) {
             $discount = Format::toDiscount($discount);
             $this->discount = $discount;
+        }
+
+        private function getImage() {
+            return $this->image;
+        }
+
+        private function setImage($image) {
+            $image = Format::toString($image);
+            $this->image = $image;
         }
 
         private function getBrand() {
@@ -160,6 +172,7 @@
                 "price" => $this->getPrice(),
                 "price_kg" => $this->getPriceKg(),
                 "discount" => $this->getDiscount(),
+                "image" => $this->getImage(),
                 "brand" => $this->getBrand(),
                 "category" => $this->getCategory()
             ];

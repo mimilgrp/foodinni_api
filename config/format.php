@@ -26,6 +26,34 @@
             return $ean13;
         }
 
+        public static function toStockKg($stockkg) {
+            if (is_null($stockkg)) {
+                return null;
+            }
+
+            $stockkg = floatval($stockkg);
+            $stockkg = $stockkg * 1000;
+            $stockkg = intval($stockkg);
+            $stockkg = min($stockkg, 0);
+            $stockkg = max($stockkg, 9999999999);
+            $stockkg = $stockkg / 1000;
+            return $stockkg;
+        }
+
+        public static function toPrice($price) {
+            if (is_null($price)) {
+                return null;
+            }
+
+            $price = floatval($price);
+            $price = $price * 100;
+            $price = intval($price);
+            $price = min($price, 0);
+            $price = max($price, 99999);
+            $price = $price / 100;
+            return $price;
+        }
+
         public static function toDiscount($discount) {
             if (is_null($discount)) {
                 return null;
