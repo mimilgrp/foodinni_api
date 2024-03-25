@@ -38,8 +38,8 @@
             $request = PdoFoodinni::$pdo->prepare("SELECT account.* FROM cashier
                 LEFT JOIN account ON cashier.identifier = account.identifier
                 WHERE cashier.identifier = :identifier AND password = :password;");
-            $request->bindValue(':identifier', $identifier, PDO::PARAM_STR);
-            $request->bindValue(':password', $password, PDO::PARAM_STR);
+            $request->bindValue(":identifier", $identifier, PDO::PARAM_STR);
+            $request->bindValue(":password", $password, PDO::PARAM_STR);
             $request->execute();
             return $request->fetchAll()[0];
         }
@@ -48,8 +48,8 @@
             $request = PdoFoodinni::$pdo->prepare("SELECT account.* FROM customer
                 LEFT JOIN account ON customer.identifier = account.identifier
                 WHERE customer.identifier = :identifier AND password = :password;");
-            $request->bindValue(':identifier', $identifier, PDO::PARAM_STR);
-            $request->bindValue(':password', $password, PDO::PARAM_STR);
+            $request->bindValue(":identifier", $identifier, PDO::PARAM_STR);
+            $request->bindValue(":password", $password, PDO::PARAM_STR);
             $request->execute();
             return $request->fetchAll()[0];
         }
@@ -58,7 +58,7 @@
             $request = PdoFoodinni::$pdo->prepare("SELECT account.identifier, firstname, lastname FROM customer
                 LEFT JOIN account ON customer.identifier = account.identifier
                 WHERE customer.identifier = :identifier;");
-            $request->bindValue(':identifier', $identifier, PDO::PARAM_STR);
+            $request->bindValue(":identifier", $identifier, PDO::PARAM_STR);
             $request->execute();
             return $request->fetchAll()[0];
         }
@@ -73,9 +73,22 @@
             return $result->fetchAll();
         }
 
+        public function getBrand($name) {
+            $result = PdoFoodinni::$pdo->prepare("SELECT DISTINCT brand.*,
+                category.name AS category_name, category.image AS category_image FROM brand
+                LEFT JOIN item ON brand.name = item.brand
+                LEFT JOIN category ON item.category = category.name
+                WHERE brand.name = :name;");
+            $result->bindValue(":name", $name, PDO::PARAM_STR);
+            $result->execute();
+            return $result->fetchAll();
+        }
+
         public function getAllBrandsCategories() {
-            $result = PdoFoodinni::$pdo->query("SELECT DISTINCT brand.name, item.category FROM brand
-                LEFT JOIN item ON brand.name = item.brand;");
+            $result = PdoFoodinni::$pdo->query("SELECT DISTINCT brand.*,
+                category.name AS category_name, category.image AS category_image FROM brand
+                LEFT JOIN item ON brand.name = item.brand
+                LEFT JOIN category ON item.category = category.name");
             return $result->fetchAll();
         }
 
@@ -83,8 +96,8 @@
             $request = PdoFoodinni::$pdo->prepare("SELECT account.* FROM manager
                 LEFT JOIN account ON manager.identifier = account.identifier
                 WHERE manager.identifier = :identifier AND password = :password;");
-            $request->bindValue(':identifier', $identifier, PDO::PARAM_STR);
-            $request->bindValue(':password', $password, PDO::PARAM_STR);
+            $request->bindValue(":identifier", $identifier, PDO::PARAM_STR);
+            $request->bindValue(":password", $password, PDO::PARAM_STR);
             $request->execute();
             return $request->fetchAll()[0];
         }

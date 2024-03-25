@@ -4,10 +4,12 @@
     class Category {
         private $pdo;
         private $name;
+        private $image;
 
         public function __construct($pdo, $params = null) {
             $this->setPdo($pdo);
             $this->setName($params["name"]);
+            $this->setImage($params["image"]);
         }
 
         private function getPdo() {
@@ -27,9 +29,19 @@
             $this->name = $name;
         }
 
+        private function getImage() {
+            return $this->image;
+        }
+
+        private function setImage($image) {
+            $image = Format::toString($image);
+            $this->image = $image;
+        }
+
         public function toArray() {
             return [
-                "name" => $this->getName()
+                "name" => $this->getName(),
+                "image" => $this->getImage()
             ];
         }
     }
