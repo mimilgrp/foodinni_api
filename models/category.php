@@ -25,7 +25,7 @@
         }
 
         private function setName($name) {
-            $name = Format::toString($name);
+            $name = Format::toString($name, );
             $this->name = $name;
         }
 
@@ -43,6 +43,19 @@
                 "name" => $this->getName(),
                 "image" => $this->getImage()
             ];
+        }
+
+        public function getAll() {
+            $pdo = $this->getPdo();
+            $results = $pdo->getAllCategories();
+            $categories = [];
+
+            foreach ($results as $result) {
+                $category = new Category($pdo, $result);
+                array_push($categories, $category);
+            }
+
+            return $categories;
         }
     }
 ?>

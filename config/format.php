@@ -1,6 +1,6 @@
 <?php
     class Format {
-        public static function toString($string) {
+        public static function toString($string, $lower = false) {
             if (is_null($string)) {
                 return null;
             }
@@ -8,9 +8,31 @@
             $string = strval($string);
             $string = strip_tags($string);
             $string = htmlspecialchars($string);
-            $string = strtolower($string);
+            $string = trim($string);
+
+            if ($lower) {
+                $string = strtolower($string);
+            }
 
             return $string;
+        }
+
+        public static function toNumber($decimal, $length, $digits) {
+            if (is_null($decimal)) {
+                return null;
+            }
+
+            $bound = $length * 10 - 1;
+            $pad = $digits * 10;
+
+            $decimal = floatval($decimal);
+            $decimal = $decimal * $pad;
+            $decimal = intval($decimal);
+            $decimal = min($decimal, $bound);
+            $decimal = max($decimal, 0);
+            $decimal = $decimal / $pad;
+
+            return $decimal;
         }
 
         public static function toEan13($ean13) {
