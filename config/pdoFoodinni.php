@@ -89,6 +89,11 @@
             return $result->fetchAll();
         }
 
+        public function getAllBrands() {
+            $result = PdoFoodinni::$pdo->query("SELECT name, image FROM brand;");
+            return $result->fetchAll();
+        }
+
         public function getAllBrandsCategories() {
             $result = PdoFoodinni::$pdo->query("SELECT DISTINCT brand.*,
                 category.name AS category_name, category.image AS category_image FROM brand

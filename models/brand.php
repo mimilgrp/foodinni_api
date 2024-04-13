@@ -103,6 +103,19 @@
             $this->setCategories($categories);
         }
 
+        public function getAll() {
+            $pdo = $this->getPdo();
+            $results = $pdo->getAllBrands();
+            $brands = [];
+
+            foreach ($results as $result) {
+                $brand = new Brand($pdo, $result);
+                array_push($brands, $brand);
+            }
+
+            return $brands;
+        }
+
         public function getAllCategories() {
             $pdo = $this->getPdo();
             $results = $pdo->getAllBrandsCategories();
